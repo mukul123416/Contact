@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="normal/base::Layout(~{::section})">
+<head>
+	<meta charset="UTF-8" />
+	<title>User Dashboard</title>
+</head>
+<body>
+  
+  <section>
+      
+      <div class="card mr-3 ml-3">
+         <div class="card-body">
+
+				<div th:if="${session.message}"
+					th:classappend="${session.message.type}" class="alert" role="alert">
+					<p class="text-center" th:text="${session.message.content}"></p>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				
+				<h1 class="text-center">Add Contact</h1>
+            <div class="container-fluid mt-1">
+                <div class="col-md-10 offset-md-1">
+                   <form action="" th:action="@{/user/process-contact}" method="post"  th:object="${contact}" enctype="multipart/form-data" class="mt-2">
+                       
+                         <div class="input-group mt-3">
+                             <div class="input-group-prepend">
+                                 <div class="input-group-text">
+                                    <i class="fa fa-plus"></i>
+                                 </div>
+                             </div>
+                               <input type="text" id="name" name="name" th:classappend="${#fields.hasErrors('name')?'is-invalid':''}" placeholder="Enter name here" class="form-control"/>
+                               
+                               <div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+									class="invalid-feedback"></div>
+                         </div>
+                         
+                          <div class="input-group mt-3">
+                             <div class="input-group-prepend">
+                                 <div class="input-group-text">
+                                    <i class="fas fa-user-alt"></i>
+                                 </div>
+                             </div>
+                               <input type="text" id="secondName" name="secondName" th:classappend="${#fields.hasErrors('secondName')?'is-invalid':''}" placeholder="Enter nick name here" class="form-control" />
+                               
+                               <div th:each="e : ${#fields.errors('secondName')}" th:text="${e}"
+									class="invalid-feedback"></div>
+                         </div>
+                         
+                          <div class="input-group mt-3">
+                             <div class="input-group-prepend">
+                                 <div class="input-group-text">
+                                    <i class="fa fa-phone"></i>
+                                 </div>
+                             </div>
+                               <input type="text" id="phone" name="phone" th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}" placeholder="Enter phone number here" class="form-control" />
+                               
+                               <div th:each="e : ${#fields.errors('phone')}" th:text="${e}"
+									class="invalid-feedback"></div>
+                         </div>
+                         
+                          <div class="input-group mt-3">
+                             <div class="input-group-prepend">
+                                 <div class="input-group-text">
+                                   <i class="fas fa-at"></i>
+                                 </div>
+                             </div>
+                               <input type="email" id="email" name="email" th:classappend="${#fields.hasErrors('email')?'is-invalid':''}" placeholder="Enter email here" class="form-control"  />
+                               
+                               <div th:each="e : ${#fields.errors('email')}" th:text="${e}"
+									class="invalid-feedback"></div>
+                         </div>
+                         
+                          <div class="input-group mt-3">
+                             <div class="input-group-prepend">
+                                 <div class="input-group-text">
+                                    <i class="fa fa-briefcase"></i>
+                                 </div>
+                             </div>
+                               <input type="text" id="work" name="work" th:classappend="${#fields.hasErrors('work')?'is-invalid':''}" placeholder="Enter work here" class="form-control" />
+                               
+                               <div th:each="e : ${#fields.errors('work')}" th:text="${e}"
+									class="invalid-feedback"></div>
+                         </div>
+                         
+                         <div class="form-group mt-3">
+                             <textarea id="mytextarea" placeholder="Enter contact description here" name="description" th:classappend="${#fields.hasErrors('description')?'is-invalid':''}"  class="form-control" rows="10" ></textarea>
+                             
+                             <div th:each="e : ${#fields.errors('description')}" th:text="${e}"
+									class="invalid-feedback"></div>
+                         </div>
+                         
+                          <div class="custom-file">
+                             <input type="file" name="profileImage"/>
+                         </div> 
+                         
+                         <div class="container text-center">
+                             <button class="btn btn-outline-primary">Save Contact</button>
+                         </div>
+                       
+                   </form>
+                </div>
+            </div>
+         </div>
+      </div>
+      
+      <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+      
+      <script>
+      tinymce.init({
+        selector: '#mytextarea'
+      });
+    </script>
+    
+     <script>
+         $(document).ready(() =>{
+        	 $(".item").removeClass("active");
+        	 $("#add-link").addClass("active");
+         });
+      </script>
+    
+  </section>
+	
+</body>
+</html>
